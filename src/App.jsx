@@ -1,3 +1,4 @@
+import RequireLogin from "./components/RequireLogin";
 import RequireValidCountry from "./components/RequireValidCountry";
 import CountriesLayout from "./components/CountriesLayout";
 import CountryDetailPage from "./pages/CountryDetailPage";
@@ -21,7 +22,9 @@ const App = () => {
         <Route index element={<CountryDetailPage />} />
       </Route>
     </Route>
-    <Route path="bucket-list" element={<BucketListPage />} />
+    <Route element={<RequireLogin />}>
+      <Route path="bucket-list" element={<BucketListPage />} />
+    </Route>
     <Route path="about" element={<AboutPage />} />
     <Route path="*" element={<NotFoundPage />} />
   </Route>
