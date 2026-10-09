@@ -1,9 +1,25 @@
 import { Link } from "react-router";
 import COUNTRIES from "../data/countries";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 const CountriesPage = () => {
+  const { pathname, state } = useLocation();
+  const navigate = useNavigate();
+  const [notice] = useState(state?.missingCode ?? null);
+  useEffect(() => {
+    if (state?.missingCode) navigate(pathname, { replace: true, state: null
+});
+}, [state, pathname, navigate]);
+
   return (
     <div className="max-w-4xl mx-auto">
+      {notice && (
+        <div className="alert alert-warning mb-4">
+          <span>We don&apos;t have a country with code &quot;{notice}&quot;.
+</span>
+    </div>
+  )}
       <h1 className="text-3xl font-bold mb-4">Countries</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -36,4 +52,4 @@ const CountriesPage = () => {
   );
 };
 
-export default CountriesPage;
+ export default CountriesPage;
